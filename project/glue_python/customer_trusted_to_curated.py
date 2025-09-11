@@ -33,12 +33,12 @@ customer_trusted_node1757017283759 = glueContext.create_dynamic_frame.from_catal
 accelerometer_trusted_node1757017485447 = glueContext.create_dynamic_frame.from_catalog(database="stedi", table_name="accelerometer_trusted", transformation_ctx="accelerometer_trusted_node1757017485447")
 
 # Script generated for node SQL Query
-SqlQuery589 = '''
+SqlQuery2428 = '''
 select distinct customer_trusted.*
 from customer_trusted
-where customer_trusted.email in (select distinct user from accelerometer_trusted)
+where customer_trusted.email = accelerometer_trusted.user
 '''
-SQLQuery_node1757017304007 = sparkSqlQuery(glueContext, query = SqlQuery589, mapping = {"customer_trusted":customer_trusted_node1757017283759, "accelerometer_trusted":accelerometer_trusted_node1757017485447}, transformation_ctx = "SQLQuery_node1757017304007")
+SQLQuery_node1757017304007 = sparkSqlQuery(glueContext, query = SqlQuery2428, mapping = {"customer_trusted":customer_trusted_node1757017283759, "accelerometer_trusted":accelerometer_trusted_node1757017485447}, transformation_ctx = "SQLQuery_node1757017304007")
 
 # Script generated for node customer_curated
 EvaluateDataQuality().process_rows(frame=SQLQuery_node1757017304007, ruleset=DEFAULT_DATA_QUALITY_RULESET, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1757016160665", "enableDataQualityResultsPublishing": True}, additional_options={"dataQualityResultsPublishing.strategy": "BEST_EFFORT", "observations.scope": "ALL"})
